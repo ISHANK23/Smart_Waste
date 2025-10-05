@@ -8,7 +8,7 @@ const router = express.Router();
  * POST /api/pickups (resident)
  * body: { wasteType, description?, scheduledDate? }
  */
-router.post('/', requireAuth, requireRole('resident', 'admin', 'staff'), async (req, res) => {
+router.post('/', requireAuth, requireRole('resident'), async (req, res) => {
   try {
     const { wasteType, description, scheduledDate } = req.body;
     if (!wasteType) return res.status(400).json({ message: 'wasteType required' });
