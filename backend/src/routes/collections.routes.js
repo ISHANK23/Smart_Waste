@@ -12,7 +12,7 @@ const router = express.Router();
  * - Create collection record with collectedBy=req.user
  * - Set bin.currentLevel = 0 (reset after collection) or decrease if you want
  */
-router.post('/scan', requireAuth, requireRole('staff', 'admin'), async (req, res) => {
+router.post('/scan', requireAuth, requireRole('staff'), async (req, res) => {
   try {
     const { binId, weight } = req.body;
     if (!binId || typeof weight !== 'number') {
@@ -42,7 +42,7 @@ router.post('/scan', requireAuth, requireRole('staff', 'admin'), async (req, res
  * - Optional query: ?days=7
  * Returns totals and simple timeseries aggregation
  */
-router.get('/stats', requireAuth, async (req, res) => {
+router.get('/stats', requireAuth, requireRole('staff', 'admin'), async (req, res) => {
   try {
     const days = Math.max(1, Math.min(90, parseInt(req.query.days || '7', 10)));
     const since = new Date();
