@@ -1,56 +1,53 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import apiClient from '../services/apiClient';
-import { ConnectivityContext } from './ConnectivityContext';
-import { SyncContext } from './SyncContext';
-import useOfflineQueue from '../hooks/useOfflineQueue';
-const PAYMENT_QUEUE_KEY = 'smartwaste_web_payment_queue';
+
 const Billing = () => {
+  const [transactions, setTransactions] = useState([]);
   const [form, setForm] = useState({ amount: '', method: 'card' });
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const { online } = useContext(ConnectivityContext);
-  const { data, refresh } = useContext(SyncContext);
-  const { queue: paymentQueue, enqueue } = useOfflineQueue(
-    PAYMENT_QUEUE_KEY,
-    async (entry) => {
-      await apiClient.post('/api/transactions/pay', entry.payload);
-      await refresh();
-    },
-    online
-  );
-  const transactions = useMemo(() => {
-    const records = data?.transactions || [];
-    return records.sort((a, b) => new Date(b.createdAt || b.updatedAt || 0) - new Date(a.createdAt || a.updatedAt || 0));
-  }, [data?.transactions]);
+
+  const fetchTransactions = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const { data } = await apiClient.get('/api/transactions');
+      setTransactions(data);
+    } catch (err) {
+      setError('Unable to load transactions.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactions();
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmitting(true);
     setMessage('');
     setError('');
-    const payload = { amount: Number(form.amount), method: form.method, clientReference: `payment-${Date.now()}` };
-    if (!online) {
-      enqueue(payload);
-      setMessage('Payment saved offline. It will process automatically when you reconnect.');
-      setForm({ amount: '', method: 'card' });
-      setSubmitting(false);
-      return;
-    }
     try {
-      await apiClient.post('/api/transactions/pay', payload);
+      await apiClient.post('/api/transactions/pay', { amount: Number(form.amount), method: form.method });
       setMessage('Payment processed successfully!');
       setForm({ amount: '', method: 'card' });
-      await refresh();
+      fetchTransactions();
     } catch (err) {
       setError(err.response?.data?.message || 'Payment failed.');
     } finally {
       setSubmitting(false);
     }
   };
+
   return (
     <div className="card">
       <h2>Billing & Payments</h2>
@@ -84,15 +81,10 @@ const Billing = () => {
       </form>
       {message && <p style={{ color: '#0c7c59', marginTop: '-1rem' }}>{message}</p>}
       {error && <p style={{ color: '#c62828', marginTop: '-1rem' }}>{error}</p>}
-      {paymentQueue.length > 0 && (
-        <p style={{ color: '#ad6a00', marginTop: '0.5rem' }}>
-          {paymentQueue.length} payment(s) pending sync.
-        </p>
-      )}
       <section style={{ marginTop: '2rem' }}>
         <h3>Transaction History</h3>
-        {transactions.length === 0 ? (
-          <p>No transactions yet.</p>
+        {loading ? (
+          <p>Loading transactions…</p>
         ) : (
           <table className="table">
             <thead>
@@ -105,11 +97,11 @@ const Billing = () => {
             </thead>
             <tbody>
               {transactions.map((transaction) => (
-                <tr key={transaction._id || transaction.clientReference}>
+                <tr key={transaction._id}>
                   <td>{transaction.type}</td>
                   <td>${transaction.amount?.toFixed ? transaction.amount.toFixed(2) : transaction.amount}</td>
                   <td>{transaction.status}</td>
-                  <td>{new Date(transaction.createdAt || transaction.updatedAt || Date.now()).toLocaleString()}</td>
+                  <td>{transaction.timestamp ? new Date(transaction.timestamp).toLocaleDateString() : '—'}</td>
                 </tr>
               ))}
             </tbody>
@@ -119,4 +111,5 @@ const Billing = () => {
     </div>
   );
 };
+
 export default Billing;

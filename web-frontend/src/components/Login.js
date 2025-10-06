@@ -1,14 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from './AuthContext';
+
 const Login = () => {
   const { login } = useContext(AuthContext);
   const [form, setForm] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -21,6 +24,7 @@ const Login = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="card" style={{ maxWidth: '420px' }}>
       <h2>Welcome Back</h2>
@@ -58,4 +62,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

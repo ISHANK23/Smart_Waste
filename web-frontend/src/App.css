@@ -5,20 +5,24 @@
   --dark: #0d1b2a;
   --accent: #88c9bf;
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--light);
   color: var(--dark);
 }
+
 .app-shell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 .app-header {
   background: linear-gradient(135deg, var(--secondary), var(--primary));
   color: white;
@@ -29,14 +33,17 @@ body {
   justify-content: space-between;
   box-shadow: 0 4px 12px rgba(12, 124, 89, 0.3);
 }
+
 .app-header h1 {
   margin: 0;
   font-size: 1.8rem;
 }
+
 .app-header nav {
   display: flex;
   gap: 1rem;
 }
+
 .app-header a {
   color: white;
   text-decoration: none;
@@ -45,23 +52,12 @@ body {
   border-radius: 999px;
   transition: background 0.3s;
 }
-.app-header .link-button {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: white;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.app-header .link-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
+
 .app-header a:hover,
 .app-header a:focus {
   background: rgba(255, 255, 255, 0.2);
 }
+
 .app-main {
   flex: 1;
   padding: 2rem;
@@ -69,41 +65,7 @@ body {
   justify-content: center;
   align-items: flex-start;
 }
-.status-pill {
-  margin-left: auto;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-}
-.status-pill.online {
-  background: rgba(33, 186, 69, 0.2);
-  color: #c8ffdd;
-}
-.status-pill.offline {
-  background: rgba(255, 82, 82, 0.25);
-  color: #ffe0e0;
-}
-.status-pill.neutral {
-  margin-left: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-.banner.warning {
-  background: rgba(255, 167, 38, 0.2);
-  color: #ad6a00;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  width: 100%;
-  text-align: center;
-}
-.loading-state {
-  color: var(--secondary);
-  font-weight: 600;
-  margin-top: 2rem;
-}
+
 .card {
   background: white;
   border-radius: 16px;
@@ -112,32 +74,23 @@ body {
   max-width: 900px;
   width: 100%;
 }
-.card-actions {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
+
 .card h2 {
   color: var(--secondary);
   margin-top: 0;
 }
+
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 1.2rem;
 }
+
 .form-group label {
   font-weight: 600;
   margin-bottom: 0.4rem;
 }
+
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -146,6 +99,7 @@ body {
   border: 1px solid #d0e6e2;
   font-size: 1rem;
 }
+
 button.primary {
   background: var(--primary);
   color: white;
@@ -157,80 +111,39 @@ button.primary {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 button.primary:hover {
   background: #0b6d4f;
 }
-button.secondary {
-  background: transparent;
-  border: 1px solid var(--secondary);
-  color: var(--secondary);
-  padding: 0.65rem 1.4rem;
-  border-radius: 999px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-button.secondary:hover {
-  background: var(--secondary);
-  color: white;
-}
+
 .grid {
   display: grid;
   gap: 1.5rem;
 }
+
 .grid-2 {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
-.grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
+
 .stat-card {
   background: var(--accent);
   color: var(--dark);
   padding: 1.5rem;
   border-radius: 12px;
 }
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.data-table th,
-.data-table td {
-  padding: 0.65rem 0.9rem;
-  border-bottom: 1px solid #d9ece8;
-  text-align: left;
-  font-size: 0.95rem;
-}
-.data-table tbody tr:nth-child(even) {
-  background: #f7fbfa;
-}
-.table-wrapper {
-  overflow-x: auto;
-}
-.inline-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1rem;
-  align-items: center;
-}
-kbd {
-  background: rgba(13, 27, 42, 0.1);
-  border-radius: 4px;
-  padding: 0.15rem 0.4rem;
-  font-size: 0.85rem;
-  border: 1px solid rgba(13, 27, 42, 0.15);
-}
+
 .table {
   width: 100%;
   border-collapse: collapse;
 }
+
 .table th,
 .table td {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #d9ece8;
   text-align: left;
 }
+
 @media (max-width: 768px) {
   .app-header {
     padding: 1rem 1.5rem;
@@ -238,9 +151,11 @@ kbd {
     align-items: flex-start;
     gap: 1rem;
   }
+
   .app-main {
     padding: 1rem;
   }
+
   .card {
     padding: 1.5rem;
   }
