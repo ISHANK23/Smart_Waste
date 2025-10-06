@@ -12,7 +12,7 @@ const router = express.Router();
  * - Create collection record with collectedBy=req.user
  * - Set bin.currentLevel = 0 (reset after collection) or decrease if you want
  */
-router.post('/scan', requireAuth, requireRole('staff'), async (req, res) => {
+router.post('/scan', requireAuth, requireRole('staff', 'admin'), async (req, res) => {
   try {
     const { binId, weight } = req.body;
     if (!binId || typeof weight !== 'number') {
