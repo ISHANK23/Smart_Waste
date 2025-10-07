@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as LocalAuthentication from 'expo-local-authentication';
 import api, { setAuthToken, configureAuthHandlers } from '../services/api';
 const extras = (globalThis.Expo || {}).Constants?.expoConfig?.extra ?? (globalThis.Expo || {}).Constants?.manifestExtra ?? {};
-const API_URL = extras?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = extras?.apiUrl || process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:4000';
 const AuthStateContext = createContext();
 const AuthDispatchContext = createContext();
 const initialState = {

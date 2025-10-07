@@ -10,7 +10,7 @@ for (const file of envFiles) {
   }
 }
 const extra = {
-  apiUrl: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:4000',
+  apiUrl: process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:4000',
   deployment: process.env.EXPO_PUBLIC_DEPLOYMENT || process.env.NODE_ENV || 'local',
   updatesChannel: process.env.EXPO_PUBLIC_UPDATES_CHANNEL || 'production',
 };
@@ -23,7 +23,7 @@ module.exports = ({ config = {} }) => ({
     ...(config.extra || {}),
     ...extra,
     eas: {
-      projectId: '7e2c2d67-7c1f-4ad8-b25d-1447e6443da6',
+      projectId: '67d7c9fb-0434-4f81-9690-428116dd4f01',
     },
   },
 });

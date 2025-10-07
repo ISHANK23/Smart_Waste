@@ -20,7 +20,7 @@
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/7e2c2d67-7c1f-4ad8-b25d-1447e6443da6"
+      "url": "https://u.expo.dev/67d7c9fb-0434-4f81-9690-428116dd4f01"
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
