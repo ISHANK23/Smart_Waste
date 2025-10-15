@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
+import { CameraView, useCameraPermissions } from 'expo-camera/next';
 import { Audio } from 'expo-av';
 import * as Location from 'expo-location';
 import api from '../services/api';

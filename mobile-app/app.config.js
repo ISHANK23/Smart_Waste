@@ -10,7 +10,7 @@ for (const file of envFiles) {
   }
 }
 const extra = {
-  apiUrl: process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:4000',
+  apiUrl: process.env.EXPO_PUBLIC_API_URL || 'http://192.168.1.2:4000',
   deployment: process.env.EXPO_PUBLIC_DEPLOYMENT || process.env.NODE_ENV || 'local',
   updatesChannel: process.env.EXPO_PUBLIC_UPDATES_CHANNEL || 'production',
 };
